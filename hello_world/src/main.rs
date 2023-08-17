@@ -1,3 +1,8 @@
+use ferris_says::say;
+use std::io::stdout;
+
 fn main() {
-    println!("Hello, world!");
+    let message = "Hello, world!";
+    let stdout = stdout().lock();
+    say(message, message.len(), stdout).unwrap();
 }
