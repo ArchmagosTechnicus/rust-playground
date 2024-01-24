@@ -5,7 +5,7 @@ pub struct Counter {
     increment_button: button::State,
     decrement_button: button::State,
     square_button: button::State,
-    value: i32,
+    value: i64,
 }
 
 #[derive(Debug, Clone, Copy)]
