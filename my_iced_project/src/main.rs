@@ -67,3 +67,47 @@ impl Sandbox for Counter {
 pub fn main() -> iced::Result {
     Counter::run(Settings::default())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_new() {
+        let counter = Counter::new();
+        assert_eq!(counter.value, 0);
+        assert_eq!(counter.buttons.len(), 3);
+        assert_eq!(counter.buttons[0].1, "Increment");
+        assert_eq!(counter.buttons[1].1, "Decrement");
+        assert_eq!(counter.buttons[2].1, "Square");
+    }
+
+    #[test]
+    fn test_title() {
+        let counter = Counter::new();
+        assert_eq!(counter.title(), "Counter");
+    }
+
+    #[test]
+    fn test_update_increment() {
+        let mut counter = Counter::new();
+        counter.update(Message::ButtonPressed(0));
+        assert_eq!(counter.value, 1);
+    }
+
+    #[test]
+    fn test_update_decrement() {
+        let mut counter = Counter::new();
+        counter.update(Message::ButtonPressed(0)); // Increment to 1
+        counter.update(Message::ButtonPressed(1)); // Decrement to 0
+        assert_eq!(counter.value, 0);
+    }
+
+    #[test]
+    fn test_update_square() {
+        let mut counter = Counter::new();
+        counter.update(Message::ButtonPressed(0)); // Increment to 1
+        counter.update(Message::ButtonPressed(2)); // Square to 1
+        assert_eq!(counter.value, 1);
+    }
+}
