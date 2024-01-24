@@ -4,6 +4,7 @@ use iced::{button, Button, Column, Sandbox, Settings, Text};
 pub struct Counter {
     increment_button: button::State,
     decrement_button: button::State,
+    square_button: button::State,
     value: i32,
 }
 
@@ -11,6 +12,7 @@ pub struct Counter {
 pub enum Message {
     Increment,
     Decrement,
+    Square,
 }
 
 impl Sandbox for Counter {
@@ -32,6 +34,9 @@ impl Sandbox for Counter {
             Message::Decrement => {
                 self.value -= 1;
             }
+            Message::Square => {
+                self.value *= self.value;
+            }
         }
     }
 
@@ -45,6 +50,10 @@ impl Sandbox for Counter {
             .push(
                 Button::new(&mut self.decrement_button, Text::new("Decrement"))
                     .on_press(Message::Decrement),
+            )
+            .push(
+                Button::new(&mut self.square_button, Text::new("Square"))
+                    .on_press(Message::Square),
             )
             .into()
     }
